@@ -1,3 +1,10 @@
 .my-nav {
     background-color: black;
 }
+
+.row {
+    background-color: red;
+}
+body {
+     background-color: yellow;
+}
