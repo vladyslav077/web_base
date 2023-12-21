@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 col-md-4 col-lg-6">
+          <img src="{{ url_for('static', filename='img/'+ item[3]) }}" alt="" class="img-fluid">
+        </div>
+        <div class="col-12 col-md-8 col-lg-6">
+          <h2  class="my-4">{{item[1]}}</h2>
+          <h3 style="color:rgb(0, 0, 0)">{{item[2]}} грн</h3>
+
+      </div>
+</div>
+</div>
+
+{% endblock main%}
