@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Facebook SDK Example</title>
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '778195216978187',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v19.0'
+      });
+
+      FB.AppEvents.logPageView();
+
+      // Check if the user is already logged in
+      FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+          // Fetch user data and display the name
+          FB.api('/me', function(response) {
+            console.log('Successful login for: ' + response.name);
+            document.getElementById('status').innerHTML =
+              'Thanks for logging in, ' + response.name + '!';
+          });
+        } else {
+          document.getElementById('status').innerHTML = 'Please log ' +
+            'into this app.';
+        }
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+</head>
+<body>
+ <h1>Facebook Login Button Example</h1>
+
+  <!-- Facebook Login Button -->
+  <fb:login-button
+    config_id="{config_id}"
+    onlogin="checkLoginState();">
+  </fb:login-button>
+
+  <script>
+    // Check login state and call statusChangeCallback
+    function checkLoginState() {
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+    }
+
+    // Handle login status response
+    function statusChangeCallback(response) {
+      console.log('Login status:', response.status);
+      if (response.status === 'connected') {
+        // The user is logged in and authenticated
+        console.log('User is logged in and authenticated');
+      } else {
+        // The user is not logged in or not authenticated
+        console.log('User is not logged in or not authenticated');
+      }
+    }
+  </script>
+</body>
+</html>
