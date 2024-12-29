@@ -1,36 +1,108 @@
-from flask import Flask, render_template, request, flash
-
+from flask import Flask, render_template
 
 app = Flask(__name__)
-database = [
-    (0, "Iphone 15 Pro", "деякий опис", 10, 41000, "Телефон", "img.png"),
-    (1, "Iphone 14 Pro", "деякий опис2", 15, 40000, "Телефон", "img_1.png"),
+
+# Список кросівок
+products = [
+    {
+        "id": 1,
+        "name": "Nike Air Max 90",
+        "price": 6500,
+        "category": "Nike",
+        "description": "Легендарні кросівки з відмінною амортизацією.",
+        "image": "tcross01.jpg",
+    },
+    {
+        "id": 2,
+        "name": "Adidas Ultraboost",
+        "price": 7200,
+        "category": "Adidas",
+        "description": "Ідеальні для бігу та активного способу життя.",
+        "image": "tcross02.jpg",
+    },
+    {
+        "id": 3,
+        "name": "Puma RS-X",
+        "price": 5800,
+        "category": "Puma",
+        "description": "Стильний вибір для повсякденного носіння.",
+        "image": "tcross03.jpeg",
+    },
+    {
+        "id": 4,
+        "name": "Nike Air Force 1",
+        "price": 7000,
+        "category": "Nike",
+        "description": "Класика стилю з 1982 року.",
+        "image": "tcross04.png",
+    },
+    {
+        "id": 5,
+        "name": "Adidas NMD_R1",
+        "price": 7500,
+        "category": "Adidas",
+        "description": "Сучасний дизайн і комфорт.",
+        "image": "tcross05.jpg",
+    },
+    {
+        "id": 6,
+        "name": "Saucony Progrid Omni 9 Disrupt ",
+        "price": 4399,
+        "category": "Saucony",
+        "description": "Стиль та перевага у зручності.",
+        "image": "tcross06.jpg",
+    },
+    {
+        "id": 7,
+        "name": "Nike Air Monarch Iv ",
+        "price": 3474,
+        "category": "Nike",
+        "description": "Демісезон, Шкіра /Синтетика.",
+        "image": "tcross07.jpg",
+    },
+    {
+        "id": 8,
+        "name": "Adidas Originals Campus ",
+        "price": 3897,
+        "category": "Nike",
+        "description": "Демісезон, Шкіра /Синтетика.",
+        "image": "tcross08.jpg",
+    },
 ]
 
-a = [43, 12, 32]
-print(a[0])
+# Унікальні категорії
+categories = list(set(product["category"] for product in products))
+
 @app.route("/")
-@app.route("/index")
 def index():
-    return render_template("index.html", products=database)
+    """
+    Головна сторінка з переліком усіх товарів.
+    """
+    return render_template("index.html", products=products, categories=categories, site_name="KRASTY CROSS")
 
-@app.route("/page2")
-def page2():
-    return render_template("page2.html")
+@app.route("/product/<int:product_id>")
+def product(product_id):
+    """
+    Сторінка з детальною інформацією про продукт.
+    """
+    product = next((p for p in products if p["id"] == product_id), None)
+    if not product:
+        return "Product not found", 404
+    return render_template("product.html", product=product, categories=categories, site_name="KRASTY CROSS")
 
-@app.route("/products")
-def products_page():
-    return render_template("products.html", items=database)
+@app.route("/category/<string:category_name>")
+def category(category_name):
+    """
+    Сторінка категорії з товарами, що належать до неї.
+    """
+    filtered_products = [p for p in products if p["category"] == category_name]
+    return render_template(
+        "category.html",
+        products=filtered_products,
+        category_name=category_name,
+        categories=categories,
+        site_name="KRASTY CROSS"
+    )
 
-@app.route("/product/<item_id>")
-def product_page(item_id):
-    print(item_id)
-    return render_template("product.html", item=database[int(item_id)])
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
-
-"""
-vanv/Scripts\activate
-python main.py
-"""

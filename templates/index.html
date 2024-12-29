@@ -1,18 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Фільми</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site_name }}</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h1>Список фільмів</h1>
-    <ul>
-        {% for movie in movies %}
-            <li>
-                <h2>{{ movie.title }}</h2>
-                <p>{{ movie.overview }}</p>
-                <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }}">
-            </li>
-        {% endfor %}
-    </ul>
+    <header>
+        <h1><a href="/">{{ site_name }}</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Головна</a></li>
+                {% for category in categories %}
+                <li><a href="/category/{{ category }}">{{ category }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Наші кросівки</h2>
+        <div class="products">
+            {% for product in products %}
+            <div class="product-card">
+                <img src="/static/img/{{ product.image }}" alt="{{ product.name }}">
+                <h3>{{ product.name }}</h3>
+                <p>Ціна: {{ product.price }} грн</p>
+                <a href="/product/{{ product.id }}">Детальніше</a>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
 </body>
 </html>

@@ -1,23 +1,15 @@
-{% extends 'base.html' %}
-
-{% block main %}
-
-<div class="container py-5">
-    <img src="" width="" height="">
-
-    <h1 > asasdasasasadsa </h1>
-
-
-    <div class="row">
-        <div class="col-12 col-md-4 col-lg-6">
-          <img src="{{ url_for('static', filename='img/'+ item[6]) }}" alt="" class="img-fluid">
-        </div>
-        <div class="col-12 col-md-8 col-lg-6">
-          <h2  class="my-4">{{item[1]}}</h2>
-          <h3 style="color:rgb(0, 0, 0)">{{item[2]}} грн</h3>
-
-      </div>
-</div>
-</div>
-
-{% endblock main%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>{{ product.name }}</h1>
+    <p>Ціна: {{ product.price }} грн</p>
+    <p>Опис: {{ product.description }}</p>
+    <a href="/">Назад до списку</a>
+</body>
+</html>
